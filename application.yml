@@ -1,3 +1,18 @@
 spring:
   application:
     name: config-server
+
+# Eureka server configurations . . .
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+# Zipkin Configs . . .
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
