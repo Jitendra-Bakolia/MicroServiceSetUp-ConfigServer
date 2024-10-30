@@ -1,0 +1,26 @@
+server:
+ port: 9004
+
+spring:
+ application:
+   name: notification-service
+ # Kafka Configs . . .
+ kafka:
+   bootstrap-servers: localhost:9092
+   template:
+     default-topic: notificationTopic
+   consumer:
+     group-id: notificationId
+     key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+     value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+     properties:
+       spring.json.trusted.packages: '*'  # Allows deserialization of all packages
+       # Configure the actual deserializer used for values
+       spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+#        spring:
+#          json:
+#            trusted:
+#              packages: com.programing.dto  # Ensure this is the package for your local DTO
+#            type:
+#              mapping: event:com.programing.dto.OrderPlacedEvent

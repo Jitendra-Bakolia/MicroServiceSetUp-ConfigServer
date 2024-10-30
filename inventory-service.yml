@@ -1,0 +1,23 @@
+#server:
+#  port: 0
+server:
+  port: 9003
+
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    name: inventory-service
+    url: jdbc:mysql://localhost:3306/inventory_service?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+        hibernate:
+            dialect: org.hibernate.dialect.MySQLDialect
+            format_sql: true
+            show_sql: true
