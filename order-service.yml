@@ -1,7 +1,116 @@
 server:
-  port: 8081
+  port: 9002
+
 spring:
+
+  # Microservice Configs . . .
+  application:
+    name: order-service
+
+  # Datasource/Database Configs . . .
   datasource:
-    url: jdbc:mysql://localhost:3306/order_db
-    username: order_user
-    password: order_pass
+    name: order_service
+    url: jdbc:mysql://localhost:3306/order_service?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+
+  # Database - JPA/Hibernate Configs . . .
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        show_sql: true
+
+  # Kafka Configs . . .
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: notificationTopic
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.trusted.packages: '*' # Trust all packages for serialization
+#        spring:
+#          json:
+#            trusted:
+#              packages: com.order_service.dto  # Trust this package for serialization
+#            type:
+#              mapping: event:com.order_service.dto.OrderPlacedEvent
+
+#Health properties
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#Resilience4j properties . . .
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventoryService:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state:
+          seconds: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+
+  #Resilience4j Timer Configs . . .
+  timelimiter:
+    instances:
+      inventoryService:
+        timeout-duration: 3s
+
+  #Resilience4j Retry Configs . . .
+  retry:
+    instances:
+      inventoryService:
+        max-attempts: 3
+        wait-duration:
+          seconds: 2
+
+
+#        registerHealthIndicator: true
+#        slidingWindowSize: 5
+#        minimumNumberOfCalls: 5
+#        permittedNumberOfCallsInHalfOpenState: 3
+#        waitDurationInOpenState: 5s
+#        failureRateThreshold: 50
+#        recordExceptions:
+#          - java.lang.RuntimeException
+#          - java.io.IOException
+#        ignoreExceptions:
+#          - java.lang.IllegalArgumentException
+#          - java.lang.IllegalStateException
+#        automaticTransitionFromOpenToHalfOpenEnabled: true
+#        eventConsumerBufferSize: 10
+#        registerHealthIndicator: true
+#        slidingWindowSize: 5
+#        minimumNumberOfCalls: 5
+#        permittedNumberOfCallsInHalfOpenState: 3
+#        waitDurationInOpenState: 5s
+#        failureRateThreshold: 50
+#        recordExceptions:
+#          - java.lang.RuntimeException
+#          - java.io.IOException
+#        ignoreExceptions:
+#          - java.lang.IllegalArgumentException
+#          - java.lang.IllegalStateException
+#        automaticTransitionFromOpenToHalfOpenEnabled: true
+#        eventConsumerBufferSize: 10

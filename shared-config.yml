@@ -1,0 +1,7 @@
+# This will share config with all microservices in the system not with eureka server.
+
+# Eureka server configurations . . .
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

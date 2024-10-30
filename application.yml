@@ -1,12 +1,8 @@
+# This is GLOBAL configuration file for every microservice in the system.
+
 spring:
   application:
     name: config-server
-
-# Eureka server configurations . . .
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
 
 # Zipkin Configs . . .
 management:
