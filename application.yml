@@ -12,3 +12,17 @@ management:
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
+
+# Eureka server configurations . . .
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      
+#logging:
+#  level:
+#    org:
+#      springframework: DEBUG
+#      hibernate: DEBUG
+#      com:
+#        order_service: DEBUG
