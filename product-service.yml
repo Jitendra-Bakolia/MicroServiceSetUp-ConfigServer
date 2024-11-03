@@ -6,4 +6,6 @@ spring:
     name: product-service
   data:
     mongodb:
-      uri: mongodb://${DB_HOST:localhost}:27017/product_service
+      host: ${DB_HOST:localhost}
+      port: ${DB_PORT:27017}
+      database: product_service
