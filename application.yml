@@ -11,13 +11,13 @@ management:
       probability: 1.0
   zipkin:
     tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
+      endpoint: http://${ZIPKIN:localhost}:9411/api/v2/spans
 
 # Eureka server configurations . . .
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery-server:8761/eureka/
+      defaultZone: http://${DISCOVERY_SERVER:localhost}:8761/eureka/
       
 #logging:
 #  level:
