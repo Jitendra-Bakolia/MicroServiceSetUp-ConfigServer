@@ -75,7 +75,7 @@ resilience4j:
   timelimiter:
     instances:
       inventoryService:
-        timeout-duration: 3s
+        timeout-duration: 10s
 
   #Resilience4j Retry Configs . . .
   retry:
@@ -83,7 +83,7 @@ resilience4j:
       inventoryService:
         max-attempts: 3
         wait-duration:
-          seconds: 2
+          seconds: 8
 
 
 #        registerHealthIndicator: true
