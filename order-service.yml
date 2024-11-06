@@ -28,7 +28,7 @@ spring:
 
   # Kafka Configs . . .
   kafka:
-    bootstrap-servers: ${KAFKA_HOST:localhost}:9092
+    bootstrap-servers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
     template:
       default-topic: notificationTopic
     producer:

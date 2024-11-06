@@ -6,7 +6,7 @@ spring:
    name: notification-service
  # Kafka Configs . . .
  kafka:
-   bootstrap-servers: localhost:9092
+   bootstrap-servers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
    template:
      default-topic: notificationTopic
    consumer:
