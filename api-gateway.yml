@@ -30,7 +30,7 @@ spring:
           - id: inventory-service
             uri: lb://INVENTORY-SERVICE
             predicates:
-              - Path=/api/order/**
+              - Path=/api/inventory/**
 
           - id: auth-service
             uri: lb://AUTH-SERVICE
