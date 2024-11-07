@@ -12,6 +12,10 @@ management:
   zipkin:
     tracing:
       endpoint: http://${ZIPKIN:localhost}:9411/api/v2/spans
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 # Eureka server configurations . . .
 eureka:
